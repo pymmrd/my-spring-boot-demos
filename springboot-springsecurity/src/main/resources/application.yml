@@ -1,0 +1,39 @@
+server:
+  port: 8000
+
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 10000ms
+    lettuce:
+      pool:
+        #最大连接数，默认8
+        max-active: 8
+        max-wait: 10000ms
+        max-idle: 200
+        #最小空闲连接数
+        min-idle: 5
+  datasource:
+    url: jdbc:mysql://localhost:3306/secure?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password:
+
+# mapper文件扫描路径
+mybaits:
+  mapper-locations:
+    - classpath: mapper/*.xml
+    - classpath*: com/**/mapper/*.xml
+
+# sql语句日志输出
+logging:
+  level:
+    com.jifeng.mall.tiny.mbg.mapper: trace
+
+# 自定义jwt key
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: mySecret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24)
+  tokenHead: Bearer  #JWT负载中拿到开头
